@@ -1,0 +1,260 @@
+{
+	"info": {
+		"_postman_id": "2a561517-22d6-44ea-bec6-a9c188814fdc",
+		"name": "kanzariya",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22896120",
+		"_collection_link": "https://grey-astronaut-320353.postman.co/workspace/kanzaria~9b63ef72-6bf1-460c-aa4b-4a24f3ec2999/collection/22896120-2a561517-22d6-44ea-bec6-a9c188814fdc?action=share&source=collection_link&creator=22896120"
+	},
+	"item": [
+		{
+			"name": "contacts",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Doe\",\r\n    \"email\": \"john.doe@example.com\",\r\n    \"phone\": \"+1234567890\",\r\n    \"company\": \"Example Corp\",\r\n    \"jobTitle\": \"Sales Manager\",\r\n    \"country\": \"USA\",\r\n    \"message\": \"I am interested in your services.\",\r\n    \"reason\": \"Sales Inquiry\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/contacts",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllContacts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/contacts",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"gsaundarkar@gmail.com\",\r\n    \"password\":\"Girish@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/signup",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Check if login was successful\r",
+									"if (pm.response.code === 200) {\r",
+									"    const response = pm.response.json();\r",
+									"    \r",
+									"    // Store the token in an environment variable\r",
+									"    pm.environment.set('token', response.token);\r",
+									"    \r",
+									"    // You can also store user data if needed\r",
+									"    pm.environment.set('current_user', JSON.stringify(response.user));\r",
+									"    \r",
+									"    console.log('Token saved successfully');\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"gsaundarkar@gmail.com\",\r\n    \"password\":\"Girish@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllUsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/auth/get-users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"get-users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "partner",
+			"item": [
+				{
+					"name": "request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/partners/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"partners",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "approve",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/partners/6824e8b33cf34afbbb890c61/approve",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"partners",
+								"6824e8b33cf34afbbb890c61",
+								"approve"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllPartners",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/partners",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"partners"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
